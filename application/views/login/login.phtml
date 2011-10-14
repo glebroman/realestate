@@ -1,0 +1,46 @@
+<div class="block">
+<?php if (is_array($errors) && count($errors)) : ?>
+<div class="ta-center" style="position:relative;">
+    <div id="box-errors" class="width4 centered">
+    <br>
+	<?php foreach($errors as $msg) : ?>
+	<div class="box box-error closeable"><?php echo $msg ?></div>
+	<?php endforeach ?>
+    </div>
+</div>
+<?php endif; ?>
+
+    <div class="fbg">
+	<div class="fbg_resize">
+	    <div class="forma">
+		<div class="article">
+		    <h2><span>
+			    <cufon class="cufon cufon-canvas" alt="Вход" style="width: 73px; height: 24px;"><canvas width="124" height="32" style="width: 124px; height: 32px; top: -5px; left: -16px;"></canvas><cufontext>Вход</cufontext></cufon>
+			    <cufon class="cufon cufon-canvas" alt="в" style="width: 14px; height: 24px;"><canvas width="59" height="32" style="width: 59px; height: 32px; top: -5px; left: -16px;"></canvas><cufontext>в</cufontext></cufon>
+			</span>
+			<cufon class="cufon cufon-canvas" alt="систему" style="width: 62px; height: 24px;"><canvas width="108" height="32" style="width: 108px; height: 32px; top: -5px; left: -16px;"></canvas><cufontext>систему</cufontext></cufon>
+		    </h2>
+		    <div class="clr"></div>
+		    <form method="post">
+			<ol>
+			    <li>
+				<label for="username">Логин</label>
+				<input type="text" class="text" name="username" id="username">
+			    </li>
+			    <li>
+				<label for="password">Пароль</label>
+				<input type="password" class="text" name="password" id="password">
+			    </li>
+			    <li class="ta-center">
+				<input type="image" class="send" src="/public/img/submit.gif" id="imageField" name="imageField">
+				<div class="clr"></div>
+			    </li>
+			</ol>
+		    </form>
+		</div>	    
+
+	    </div>
+	    <div class="clr"></div>
+	</div>
+    </div>
+</div>

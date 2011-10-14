@@ -1,0 +1,14 @@
+<?php
+$menu = $this->registry->menu;
+$controller = $this->registry->router->getController();
+$action = $this->registry->router->getAction();
+?>
+		<div id="navigation">
+		  <ul>
+		    <?php foreach ($this->registry->menu as $key => $items) :?>
+		      <?php foreach ($items as $action => $title) :?>
+		      <li><a<?php if ($controller == $key) :?> class="active"<?php endif;?> href="/<?php echo $key;?>/<?php echo $action;?>"><span><?php echo $title;?></span></a></li>
+		      <?php endforeach; ?>
+		    <?php endforeach;?>
+		  </ul>
+		</div>
