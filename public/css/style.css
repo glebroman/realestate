@@ -203,3 +203,10 @@ ol li .send { margin:16px 0 0 0;}
 .ta-center{
     text-align: center;
 }
+#box-errors {
+    position:absolute;
+    top: -30px;
+    text-align: center;
+    color: #ff0000;
+    padding-left: 30px;
+}

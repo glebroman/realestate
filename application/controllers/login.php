@@ -17,28 +17,12 @@ class Controller_Login Extends AbsctractController {
 	    if (!$errors = $this->checkRequested()) {
 		/* проверяем по таблице пользователей */
 		$mapper = new Model_CustomsMapper($this->registry->db);
-		$user = $mapper->findByEmail( trim($_POST['username']) );
-		/* проверяем в таблице админов*/
-		if (!$user) {
-		    $admins = new Model_AdminsMapper($this->registry->db);
-		    $user = $admins->findByEmail( trim($_POST['username']) );
-		}
-
+		$user = $mapper->findByEmail(trim($_POST['username']));
 		if (!$user) {
 		    $errors[] = 'Такого пользователя нет в системе';
-		} elseif ($user['password'] == md5($_POST['password'])) {
-		    if (!$user['lockout']) {	
-			$this->setStorage($user);
-			if ($user['category']==1)
-			    header('Location: ' . $this->registry->url . '/pictures');
-			elseif ($user['category']==0)
-			    header('Location: ' . $this->registry->url . '/gallery');
-			elseif ($user['category']==9)
-			    header('Location: ' . $this->registry->url . '/admin/customs');
-		    } else {
-			$errors[] = 'Неактивированный пользователь.<br />По всем ворпосам обращайтесь к администратору системы.';
-			$_POST = array();
-		    }
+		} elseif ($user['password'] == $_POST['password']) {
+		    $this->setStorage($user);
+		    header('Location: ' . $this->registry->url . '/index');
 		} else {
 		    $errors[] = 'Неправильно введен пароль';
 		}
@@ -48,7 +32,7 @@ class Controller_Login Extends AbsctractController {
 	$this->registry->template->set('title', 'Вход в систему');
 	$this->registry->template->show('login/login');
     }
-    
+
     /**
      * Проверка POST - данных
      * @return array $errors 
@@ -56,12 +40,11 @@ class Controller_Login Extends AbsctractController {
     private function checkRequested() {
 	$errors = array();
 	$email = trim($_POST['username']);
-	if (!$email)
-	    $errors[] = 'Не заполнено обязательное поле E-mail';
+	$password = trim($_POST['password']);
+	if (!$email || !$password)
+	    $errors[] = 'Не заполнено обязательное поле';
 	elseif (!filter_var($email, FILTER_VALIDATE_EMAIL))
 	    $errors[] = 'Введен не верный E-mail';
-	if (!trim($_POST['password']))
-	    $errors[] = 'Не заполнено обязательное поле Пароль';
 	return $errors;
     }
     
@@ -81,9 +64,7 @@ class Controller_Login Extends AbsctractController {
     private function setStorage($user) {
 	$data = array();
 	$data['id']	    = $user['id'];
-	$data['nickname']   = $user['nickname'];
-	$data['email']	    = $user['email'];
-	$data['category']   = $user['category'];
+	$data['name']	    = $user['name'];
 	$_SESSION['user_data'] = $data;
     }
 }

@@ -5,39 +5,15 @@
  *
  * @author Breeze
  */
-class Model_CustomsMapper {
+class Model_CustomsMapper extends AbstractMapper {
     
-    protected $table_name = 'customs';
-    protected $db = NULL;
+    protected $_model_object_name = 'customs';
     
-    /**
-     * Конструктор
-     * @param $db дескриптор базы данных
-     */
-    public function __construct($db) {
-	$this->db = $db;
-    }
-    
-    /**
-     * Извлечение информации о пользователе по id пользователя
-     * @param integer $id
-     * @param boolean $use_md5 optional
-     * @return object дескриптор состояния 
-     */
-    public function findById($id, $use_md5=FALSE) {
-	$col = $use_md5 ? 'md5(id)' : 'id';
-	$smtp = $this->db->query("SELECT * from customs where $col = '$id'");
-	return $smtp->fetch(PDO::FETCH_ASSOC);
-    }
-    
-    /**
-     * Извлечение информации о пользователе по E-mail
-     * @param string  $email
-     * @return object дескриптор состояния 
-     */
+    protected $table_name = 'users';
+        
     public function findByEmail($email) {
-	$smtp = $this->db->query("SELECT * from customs where email = '$email'");
-	return $smtp->fetch(PDO::FETCH_ASSOC);
+	$smtp = sqlsrv_query($this->db, "SELECT * from " . $this->table_name . " where name = '$email'");
+	return sqlsrv_fetch_array( $smtp, SQLSRV_FETCH_ASSOC);
     }
     
     /**

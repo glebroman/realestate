@@ -26,8 +26,8 @@
 				<cufon class="cufon cufon-canvas" alt="here" style="width: 34px; height: 16px;"><canvas width="63" height="22" style="width: 63px; height: 22px; top: -3px; left: -11px;"></canvas><cufontext>here</cufontext></cufon>
 			    </small></a></h1>
 		</div>
-		<?php //if ($this->registry->user)
-		    include (APPLICATION_PATH . 'views/menu.phtml'); ?>
+		<?php if ($this->registry->user) include (APPLICATION_PATH . 'views/menu.phtml'); ?>
 		<div class="clr"></div>
 	    </div>
 	</div>
+	<div class="block">
