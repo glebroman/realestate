@@ -8,9 +8,9 @@ Class Router {
     private $action;
     private $args = array();
 
-    public function __construct($registry) {
+    public function __construct() {
 
-	$this->registry = $registry;
+	$this->registry = Registry::getInstance();
     }
 
     public function setPath($path) {

@@ -1,12 +1,11 @@
-	    <?php 
-	    if ($pages>0) :
-		$link = '/'.$this->registry->router->getController().'/'.$this->registry->router->getAction();
-	    ?>
+	    <?php if ($this->pages->pageCount>0) : ?>
+
 	    <div class="barpage">
 		Страницы:
-		<?php for ($i=1; $i<=$pages; $i++) :?>
-		<a href="<?=$link;?>/page/<?=$i;?>"<?php if ($page==$i) :?> id="active"<?php endif; ?>><?=$i;?></a>
+		<?php for ($i=1; $i<=$this->pages->pageCount; $i++) :?>
+		<a href="<?=$this->pages->url;?>/page/<?=$i;?>"<?php if ($this->pages->current==$i) :?> id="active"<?php endif; ?>><?=$i;?></a>
 		<?php endfor; ?>
+		
 	    </div>
 	    <?php endif; ?>
 

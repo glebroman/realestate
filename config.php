@@ -11,7 +11,7 @@ function __autoload($class_name) {
     }
 }
 
-$registry = new Registry;
+$registry = Registry::getInstance();
 $config = new Ini('application.ini');
 
 $menu = array(

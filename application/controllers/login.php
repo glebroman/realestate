@@ -2,7 +2,7 @@
 
 /**
  * 
- *
+ * 
  * @author Breeze
  */
 class Controller_Login Extends AbsctractController {
@@ -16,11 +16,11 @@ class Controller_Login Extends AbsctractController {
 	if (isset($_POST['username']) && isset($_POST['password'])) {
 	    if (!$errors = $this->checkRequested()) {
 		/* проверяем по таблице пользователей */
-		$mapper = new Model_CustomsMapper($this->registry->db);
-		$user = $mapper->findByEmail(trim($_POST['username']));
+		$mapper = new Model_CustomsMapper();
+		$user = $mapper->findByWebLogin(trim($_POST['username']));
 		if (!$user) {
 		    $errors[] = 'Такого пользователя нет в системе';
-		} elseif ($user['password'] == $_POST['password']) {
+		} elseif ($user['Web Pwd'] == $_POST['password']) {
 		    $this->setStorage($user);
 		    header('Location: ' . $this->registry->url . '/index');
 		} else {
@@ -29,7 +29,6 @@ class Controller_Login Extends AbsctractController {
 	    }
 	}
 	$this->registry->template->set('errors', $errors);
-	$this->registry->template->set('title', 'Вход в систему');
 	$this->registry->template->show('login/login');
     }
 
@@ -39,12 +38,12 @@ class Controller_Login Extends AbsctractController {
      */
     private function checkRequested() {
 	$errors = array();
-	$email = trim($_POST['username']);
+	$login = trim($_POST['username']);
 	$password = trim($_POST['password']);
-	if (!$email || !$password)
-	    $errors[] = 'Не заполнено обязательное поле';
-	elseif (!filter_var($email, FILTER_VALIDATE_EMAIL))
-	    $errors[] = 'Введен не верный E-mail';
+	if (!$login || !$password)
+	    $errors[] = 'Не заполнено обязательное поле'; 
+	elseif (preg_match( '/[^0-9a-z]/i', $login )) 
+	    $errors[] = 'Введен не верный Логин';
 	return $errors;
     }
     
@@ -63,8 +62,8 @@ class Controller_Login Extends AbsctractController {
      */
     private function setStorage($user) {
 	$data = array();
-	$data['id']	    = $user['id'];
-	$data['name']	    = $user['name'];
+	$data['id']	    = $user['No_'];
+	$data['Name']	    = $user['Name'];
 	$_SESSION['user_data'] = $data;
     }
 }

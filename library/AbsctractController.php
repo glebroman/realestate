@@ -4,9 +4,9 @@ Abstract Class AbsctractController {
 
     protected $registry;
 
-    function __construct($registry) {
+    function __construct() {
 	
-	$this->registry = $registry;
+	$this->registry = Registry::getInstance();
 	session_start();
     }
 

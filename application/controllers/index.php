@@ -7,8 +7,8 @@
  */
 class Controller_Index Extends AbsctractController {
 
-    public function __construct($registry) {
-	parent::__construct($registry);
+    public function __construct() {
+	parent::__construct();
 	if (!isset($_SESSION['user_data'])) {
 	    header('Location: ' . $this->registry->url . '/login');
 	    exit;
@@ -18,8 +18,8 @@ class Controller_Index Extends AbsctractController {
     
     public function index() {
 	$users = new Model_CustomsMapper($this->registry->db);
-	$user = $users->findById($this->registry->user['id']);
-	$this->registry->template->set('user', $user->getName());
+	$user = $users->findByField('No_', $this->registry->user['id']);
+	$this->registry->template->set('user', iconv("cp1251", "UTF-8", $user->getName()));
 	$this->registry->template->show('index');
     }
 }

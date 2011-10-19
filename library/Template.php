@@ -5,12 +5,12 @@ Class Template {
     private $registry;
     private $vars = array();
 
-    function __construct($registry) {
+    function __construct() {
 
-	$this->registry = $registry;
+	$this->registry = Registry::getInstance();
     }
-
-    function set($varname, $value, $overwrite=false) {
+    
+    public function set($varname, $value, $overwrite=false) {
 
 	if (isset($this->vars[$varname]) == true AND $overwrite == false) {
 	    trigger_error('Unable to set var `' . $varname . '`. Already set, and overwrite not allowed.', E_USER_NOTICE);
@@ -21,7 +21,7 @@ Class Template {
 	return true;
     }
 
-    function remove($varname) {
+    public function remove($varname) {
 
 	unset($this->vars[$varname]);
 	return true;

@@ -1,10 +1,38 @@
+<?php $pagination = new PaginationControl($paginator, 'paginator.phtml'); ?>
     <div class="fbg">
 	<div class="fbg_resize">
 	    <h2>
 		<cufon class="cufon cufon-canvas" alt="Входящие" style="width: 73px; height: 24px;"><canvas width="124" height="32" style="width: 124px; height: 32px; top: -5px; left: -16px;"></canvas><cufontext>Входящие</cufontext></cufon>
 		<cufon class="cufon cufon-canvas" alt="сообщения" style="width: 62px; height: 24px;"><canvas width="108" height="32" style="width: 108px; height: 32px; top: -5px; left: -16px;"></canvas><cufontext>сообщения</cufontext></cufon>
 	    </h2>
-	    <?php include (APPLICATION_PATH . 'views/paginator.phtml'); ?>
+	    <table width="80%">
+		<tr>
+		    <th align="center" width="50">#</th>
+		    <th align="center" width="130">Дата</th>
+		    <th>Текст</th>
+		    <th align="center" width="80">Статус</th>
+		</tr>
+		<?php if (count($pagination->items)) : ?>
+		<?php foreach ($pagination->items as $item) :?>
+		
+		<tr>
+		    <td align="center"><?php  echo $item['rownum']; ?></td>
+		    <td align="center"><?php  echo date_format($item['Date'], 'd-m-Y H:i:s'); ?></td>
+		    <td><?php  echo iconv("cp1251","UTF-8",$item['Text 1']); ?></td>
+		    <td align="center"><?php  echo $item['New']; ?></td>
+		</tr>
+		<?php endforeach;?>
+		<?php else : ?>
+		
+		<tr>
+		    <td align="center" colspan="4">Сообщений нет</td>
+		</tr>
+		<?php endif; ?>
+		
+	    </table>
+	    
+	    <?php echo $pagination->render(); ?>
+	    
 	    <div class="clr"></div>
 	</div>
     </div>
