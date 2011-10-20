@@ -13,13 +13,15 @@
 		    <th align="center" width="80">Статус</th>
 		</tr>
 		<?php if (count($pagination->items)) : ?>
-		<?php foreach ($pagination->items as $item) :?>
+		<?php foreach ($pagination->items as $item) : ?>
 		
-		<tr>
-		    <td align="center"><?php  echo $item['rownum']; ?></td>
-		    <td align="center"><?php  echo date_format($item['Date'], 'd-m-Y H:i:s'); ?></td>
-		    <td><?php  echo iconv("cp1251","UTF-8",$item['Text 1']); ?></td>
-		    <td align="center"><?php  echo $item['New']; ?></td>
+		<tr<?php if ($item->isNew()) :?> class="bold"<?php endif; ?>>
+		    <td align="center"><?php  echo $item->getLine_No_(); ?></td>
+		    <td align="center"><?php  echo date_format($item->getDate(), 'd-m-Y H:i:s'); ?></td>
+		    <td><?php  echo iconv("cp1251","UTF-8",$item->getText()); ?></td>
+		    <td align="center">
+			<?php if ($item->isNew()) :?><a href="/messages/toggle/id/<?php echo $item->getLine_No_(); ?>"><?php endif;
+			    ?><?php  echo $item->getNew(); ?><?php if ($item->isNew()) :?></a><?php endif;?></td>
 		</tr>
 		<?php endforeach;?>
 		<?php else : ?>
@@ -31,7 +33,7 @@
 		
 	    </table>
 	    
-	    <?php echo $pagination->render(); ?>
+	    <?php if (count($pagination->items)) echo $pagination->render(); ?>
 	    
 	    <div class="clr"></div>
 	</div>

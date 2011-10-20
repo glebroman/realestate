@@ -125,11 +125,11 @@ class Paginator {
 	$length = $this->getItemCountPerPage();
 	$end = $start + $length - 1;
 	
-	$select = 'select * from (select ROW_NUMBER() OVER (ORDER BY "Line No_") AS rownum, * from "' . $this->_table . '") as t where t.rownum BETWEEN ' . $start . ' AND ' . $end . $this->_where;
+	$select = 'select * from (select ROW_NUMBER() OVER (ORDER BY "Line No_") AS rownum, * from "' . $this->_table . '") as t where t.rownum BETWEEN ' . $start . ' AND ' . $end . $this->_where . ' order by Date desc';
 	$result = sqlsrv_query($db, $select);
 	if ($result) {
 	    while ($row = sqlsrv_fetch_array( $result, SQLSRV_FETCH_ASSOC)) {
-	       $items[] = new ArrayObject($row); 
+	       $items[] = new Model_Messages($row); 
 	    }
 	}
 	return $items;

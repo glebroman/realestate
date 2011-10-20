@@ -210,3 +210,21 @@ ol li .send { margin:16px 0 0 0;}
     color: #ff0000;
     padding-left: 30px;
 }
+
+.bold {
+    font-weight:bold;
+}
+table.index {
+    border: 1px #dfdfdf solid;
+}
+.index th {
+   background-color:#dfdfdf;
+   padding: 2px 8px;
+   color: #fff;
+}
+.index tbody th {
+    font-weight:normal;
+}
+.index tbody th, .index tbody td {
+    border-bottom: 1px #dfdfdf solid;
+}

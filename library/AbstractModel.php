@@ -40,6 +40,7 @@ abstract class AbstractModel {
     public function setOptions(array $options) {
 	foreach ($options as $key => $value) {
 	    try {
+		$key = str_replace(' ', '_' , $key);
 		$method = 'set' . ucfirst($key);
 		$this->$method($value);
 	    } catch (Exception $e) {

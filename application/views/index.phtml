@@ -1,12 +1,43 @@
-
     <div class="fbg">
 	<div class="fbg_resize">
 	    <h2>
 		<cufon class="cufon cufon-canvas" alt="Договора" style="width: 73px; height: 24px;"><canvas width="124" height="32" style="width: 124px; height: 32px; top: -5px; left: -16px;"></canvas><cufontext>Договора</cufontext></cufon>
 	    </h2>
+	    <?php foreach ($agreements as $item) :?>
+	    <table class="index" width="100%">
+		<thead
+		    <tr>
+			<th colspan="6">
+			    Договор <?php echo ($item->getAgreement_Type()==1) ? 'Инвестирования' : 'Бронирования';?>
+			    #<?php echo $item->getNo_();?>
+			</th>
+		    </tr>
+		</thead>
+		<tbody>
+		    <tr>
+			<th>Описание:</th><td colspan="5"><?php echo $item->getDescription();?></td>
+		    </tr>
+		    <tr>
+			<th width="100">Дата договора:</th><td width="200"><?php echo date_format($item->getAgreement_Date(), 'd/m/Y') ?></td>
+			<th width="100">Код очереди:</th><td width="160"><?php echo $item->getBuilding_Turn_Code(); ?></td>
+			<th width="100">Сумма договора:</th><td width="160"><?php echo number_format($item->getAgreement_Amount(), 2, '.', ' '); ?></td>
+		    </tr>
+		    <tr>
+			<th>№ договора:</th><td><?php echo $item->getAgreementNo();?></td>
+			<th>Номер дома:</th><td><?php echo $item->getHouse_Code(); ?></td>
+			<th>Оплачено:</th><td><?php echo number_format($item->getPayed(), 2, '.', ' '); ?></td>
+		    </tr>
+		    <tr>
+			<th>Статус:</th><td><?php echo $item->getStatus();?></td>
+			<th>Номер объекта:</th><td><?php echo $item->getObject_Of_Investing(); ?></td>
+			<th>Остаток:</th><td><?php echo number_format($item->getRemainder(), 2, '.', ' '); ?></td>
+		    </tr>
+		</tbody>
+	    </table>
+	    <br />
+	    <?php endforeach;?>
 
 	    <div class="clr"></div>
-	    <?php echo $user;?>
 	</div>
     </div>
     <br />
@@ -17,6 +48,25 @@
 	    <h2>
 		<cufon class="cufon cufon-canvas" alt="Платежи" style="width: 73px; height: 24px;"><canvas width="124" height="32" style="width: 124px; height: 32px; top: -5px; left: -16px;"></canvas><cufontext>Платежи</cufontext></cufon>
 	    </h2>
+	    <?php foreach ($payments as $item) :?>
+	    
+	    <table class="index" width="100%">
+		<thead>
+		    <tr><th colspan="12"><?php echo $item->getDescription(); ?></th></tr>
+		</thead>
+		<tr>
+		    <th width="30">Дата</th><td width="70"><?php echo date_format($item->getDate(), 'd/m/Y') ?></td>
+		    <th width="50">Договор</th><td width="80"><?php echo $item->getAgreement_No_(); ?></td>
+		    <th width="50">Описание</th><td width="50"><?php echo $item->getType(); ?></td>
+		    <th width="50">Платеж</th><td width="90"><?php echo number_format($item->getPlan__Amount(), 2, '.', ' ');?></td>
+		    <th width="50">Оплачено</th><td width="90"><?php echo number_format($item->getPayed(), 2, '.', ' '); ?></td>
+		    <th width="50">Остаток</th><td><?php echo number_format($item->getRemainder(), 2, '.', ' '); ?></td>
+		</tr>
+	    </table>
+	    <br />
+	    
+	    <?php endforeach;?>
+	    
 	    <div class="clr"></div>
 	</div>
     </div>

@@ -16,16 +16,44 @@ abstract class AbstractMapper {
 	return Registry::getInstance()->config->sets['db']['prefix'] . '$' . $this->table_name;
     }
 
-    public function findByField($field, $value, $throw_exception = false) {
-	$smtp = sqlsrv_query($this->db, 'SELECT * from "' . $this->getTableName() . '" where "' . $field . '"=' . "'$value'");
+    public function findByFields($fields=array(), $throw_exception = false) {
+	$select = 'SELECT * from "' . $this->getTableName() . '"';
+	if (count($fields))
+	    $select .= ' where ' . $this->whereToStr($fields);
+	else
+	     throw new Exception('The fieldss for SELECT is not set');
+	$smtp = sqlsrv_query($this->db, $select);
 	$result = sqlsrv_fetch_array($smtp, SQLSRV_FETCH_ASSOC);
 	if (count($result)==0) {
 	    if (!$throw_exception)
 		return;
-	    throw new Exception($this->_model_object_name . ' record with value [' . $value . '] not found');
+	    throw new Exception($this->_model_object_name . ' record with the given parameters it is not found');
 	}
-	$class = 'Model_' . $this->_model_object_name;
-	return new $class($result);
+	return $result;
     }
     
+    protected function update($set=array(), $where=array()) {
+	if (!count($set))
+	     throw new Exception('The parameters for UPDATE is not set');
+	$sql = 'update "' . $this->getTableName() . '" set ' . $this->setToStr($set);
+	if (count($where))
+	    $sql .= ' where ' . $this->whereToStr($where) ;
+	return sqlsrv_query($this->db, $sql);
+    }
+    
+    private function setToStr($set) {
+	$str = '';
+	foreach ($set as $key => $value) {
+	    $str .= '"'.$key.'"=' . "'$value', ";
+	}
+	return trim($str, ', ');
+    }
+    
+    private function whereToStr($where) {
+	$str = '';
+	foreach ($where as $key => $value) {
+	    $str .= '"'.$key.'"=' . "'$value' and ";
+	}
+	return trim($str, ' and ');
+    }
 } 

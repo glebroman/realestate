@@ -17,10 +17,18 @@ class Controller_Index Extends AbsctractController {
     }
     
     public function index() {
-	$users = new Model_CustomsMapper($this->registry->db);
-	$user = $users->findByField('No_', $this->registry->user['id']);
-	$this->registry->template->set('user', iconv("cp1251", "UTF-8", $user->getName()));
+	$users = new Model_CustomsMapper();
+	$data = $users->findByFields(array('No_' => $this->registry->user['id']));
+	$user = new Model_Customs($data);
+	$agreements = new Model_AgreementMapper();
+	$items1 = $agreements->getAgreements();
+	$investments = new Model_InvestmentMapper();
+	$items2 = $investments->getPayments();
+	$this->registry->template->set('user', $user->getName());
+	$this->registry->template->set('agreements', $items1);
+	$this->registry->template->set('payments', $items2);
 	$this->registry->template->show('index');
     }
+
 }
 
