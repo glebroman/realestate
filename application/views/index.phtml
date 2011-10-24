@@ -48,25 +48,33 @@
 	    <h2>
 		<cufon class="cufon cufon-canvas" alt="Платежи" style="width: 73px; height: 24px;"><canvas width="124" height="32" style="width: 124px; height: 32px; top: -5px; left: -16px;"></canvas><cufontext>Платежи</cufontext></cufon>
 	    </h2>
-	    <?php foreach ($payments as $item) :?>
-	    
 	    <table class="index" width="100%">
 		<thead>
-		    <tr><th colspan="12"><?php echo $item->getDescription(); ?></th></tr>
+		    <tr>
+			<th class="ta-center" width="60">Дата</th>
+			<th class="ta-center" width="70">Договор</th>
+			<th width="250">Описание</th>
+			<th class="ta-center" width="90">Платеж</th>
+			<th class="ta-center" width="90">Оплачено</th>
+			<th class="ta-center" width="90">Остаток</th>
+		    </tr>
 		</thead>
+		<tbody>
+		<?php foreach ($payments as $item) :?>
+	    
 		<tr>
-		    <th width="30">Дата</th><td width="70"><?php echo date_format($item->getDate(), 'd/m/Y') ?></td>
-		    <th width="50">Договор</th><td width="80"><?php echo $item->getAgreement_No_(); ?></td>
-		    <th width="50">Описание</th><td width="50"><?php echo $item->getType(); ?></td>
-		    <th width="50">Платеж</th><td width="90"><?php echo number_format($item->getPlan__Amount(), 2, '.', ' ');?></td>
-		    <th width="50">Оплачено</th><td width="90"><?php echo number_format($item->getPayed(), 2, '.', ' '); ?></td>
-		    <th width="50">Остаток</th><td><?php echo number_format($item->getRemainder(), 2, '.', ' '); ?></td>
+		    <td class="ta-center border"><?php echo date_format($item->getDate(), 'd/m/Y') ?></td>
+		    <td class="ta-center border"><?php echo $item->getAgreement_No_(); ?></td>
+		    <td class="border"><?php echo $item->getDescription() . ' (' . $item->getType() . ')'; ?></td>
+		    <td class="ta-center border"><?php echo number_format($item->getPlan__Amount(), 2, '.', ' ');?></td>
+		    <td class="ta-center border"><?php echo number_format($item->getPayed(), 2, '.', ' '); ?></td>
+		    <td class="ta-center border"><?php echo number_format($item->getRemainder(), 2, '.', ' '); ?></td>
 		</tr>
+	    
+		<?php endforeach;?>
+		</tbody>
 	    </table>
 	    <br />
-	    
-	    <?php endforeach;?>
-	    
 	    <div class="clr"></div>
 	</div>
     </div>

@@ -14,6 +14,7 @@ class Controller_Index Extends AbsctractController {
 	    exit;
 	} else
 	    $this->registry->user = $_SESSION['user_data'];
+	$this->registry->new_messages = Func::countNewMessages();
     }
     
     public function index() {
@@ -29,6 +30,7 @@ class Controller_Index Extends AbsctractController {
 	$this->registry->template->set('payments', $items2);
 	$this->registry->template->show('index');
     }
+    
 
 }
 

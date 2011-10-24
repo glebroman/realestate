@@ -21,7 +21,7 @@
 		    <td><?php  echo iconv("cp1251","UTF-8",$item->getText()); ?></td>
 		    <td align="center">
 			<?php if ($item->isNew()) :?><a href="/messages/toggle/id/<?php echo $item->getLine_No_(); ?>"><?php endif;
-			    ?><?php  echo $item->getNew(); ?><?php if ($item->isNew()) :?></a><?php endif;?></td>
+			    ?><img src="/public/img/mail<?php  echo $item->getNew(); ?>.png"><?php if ($item->isNew()) :?></a><?php endif;?></td>
 		</tr>
 		<?php endforeach;?>
 		<?php else : ?>

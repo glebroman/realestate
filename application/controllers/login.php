@@ -64,6 +64,7 @@ class Controller_Login Extends AbsctractController {
 	$data = array();
 	$data['id']	    = $user['No_'];
 	$data['Name']	    = $user['Name'];
+	$data['NewMes']	    = 0;
 	$_SESSION['user_data'] = $data;
     }
 }

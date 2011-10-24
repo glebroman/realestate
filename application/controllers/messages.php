@@ -14,8 +14,10 @@ class Controller_Messages Extends AbsctractController {
 	if (!isset($_SESSION['user_data'])) {
 	    header('Location: ' . $this->registry->url . '/login');
 	    exit;
-	} else
-	    $this->registry->user = $_SESSION['user_data'];
+	} else {
+	   $this->registry->user = $_SESSION['user_data'];
+	   $this->registry->new_messages = Func::countNewMessages();
+	}
 	$this->mapper = new Model_MessagesMapper();
     }
 
